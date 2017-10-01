@@ -12,7 +12,7 @@ ARCHITECTURE behavior OF principal_tb IS
     PORT(
          rst : IN  std_logic;
          CLK : IN  std_logic;
-         Instruction : OUT  std_logic_vector(31 downto 0)
+         ALURESULT : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
     
@@ -22,7 +22,7 @@ ARCHITECTURE behavior OF principal_tb IS
    signal CLK : std_logic := '0';
 
  	--Outputs
-   signal Instruction : std_logic_vector(31 downto 0);
+   signal ALURESULT : std_logic_vector(31 downto 0);
 
    -- Clock period definitions
    constant CLK_period : time := 10 ns;
@@ -51,11 +51,9 @@ BEGIN
    begin		
       rst<='1';
       wait for 10 ns;
-		rst<='0';
-
-      wait for 100 ns;
-
-      -- insert stimulus here 
+      rst<='0';
+      wait for 50 ms;
+      rst<='1';
 
       wait;
    end process;
