@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity MODULOPRINCIPAL is
     Port ( rst : in  STD_LOGIC;
            CLK : in  STD_LOGIC;
-           Instruction : out  STD_LOGIC_VECTOR (31 downto 0));
+           ALURESULT : out  STD_LOGIC_VECTOR (31 downto 0));
 end MODULOPRINCIPAL;
 
 architecture Behavioral of MODULOPRINCIPAL is
@@ -28,14 +28,68 @@ architecture Behavioral of MODULOPRINCIPAL is
 	
 	COMPONENT InstructionMemory
 	PORT(
-		Address : IN std_logic_vector(5 downto 0);          
+		Address : IN std_logic_vector(5 downto 0);   
+		rst : IN std_logic;
 		Instruction : OUT std_logic_vector(31 downto 0)
 		);
 	END COMPONENT;
 
-signal B0:std_logic_vector(31 downto 0);
-signal B1:std_logic_vector(31 downto 0);
-signal B2:std_logic_vector(31 downto 0);
+	COMPONENT OMUXT
+	PORT(
+		Crs2 : IN std_logic_vector(31 downto 0);
+		SEUimm : IN std_logic_vector(31 downto 0);
+		i : IN std_logic;          
+		oper2 : OUT std_logic_vector(31 downto 0)
+		);
+	END COMPONENT;
+	
+	COMPONENT RF
+	PORT(
+		rs1 : IN std_logic_vector(4 downto 0);
+		rs2 : IN std_logic_vector(4 downto 0);
+		rd : IN std_logic_vector(4 downto 0);
+		DWR : IN std_logic_vector(31 downto 0);
+		rst : IN std_logic;          
+		Crs1 : OUT std_logic_vector(31 downto 0);
+		Crs2 : OUT std_logic_vector(31 downto 0)
+		);
+	END COMPONENT;
+	
+	COMPONENT SEU
+	PORT(
+		imm13 : IN std_logic_vector(12 downto 0);          
+		SEUimm : OUT std_logic_vector(31 downto 0)
+		);
+	END COMPONENT;
+	
+	COMPONENT ALU
+	PORT(
+		Oper1 : IN std_logic_vector(31 downto 0);
+		Oper2 : IN std_logic_vector(31 downto 0);
+		ALUOP : IN std_logic_vector(5 downto 0);          
+		ALURESULT : OUT std_logic_vector(31 downto 0)
+		);
+	END COMPONENT;
+	
+	COMPONENT CU
+	PORT(
+		OP : IN std_logic_vector(1 downto 0);
+		OP3 : IN std_logic_vector(5 downto 0);          
+		ALUOP : OUT std_logic_vector(5 downto 0)
+		);
+	END COMPONENT;
+
+signal B0:std_logic_vector(31 downto 0);--Result: conecta al sumador con el DataIn de nPC
+signal B1:std_logic_vector(31 downto 0);--DataOut(nPC): conecta al nPC con el DataIn de PC
+signal B2:std_logic_vector(31 downto 0);--DataOut(PC): conecta al PC con el address del IM
+signal B3:std_logic_vector(31 downto 0);--Instruction: conecta al IM con el CU((31-30),(24-19)),RF((18-14),(4-0),(29-25)),
+													--SEU(12-0) y OMUXT(13)
+signal B4:std_logic_vector(5 downto 0); --ALUOP: conecta a CU y a la ALU
+signal B5:std_logic_vector(31 downto 0);--ALURESULT: conecta a la ALU con el rd del RF, es la salida del Modulo Principal
+signal B6:std_logic_vector(31 downto 0);--Crs1: conecta al RF con Oper1 de la ALU
+signal B7:std_logic_vector(31 downto 0);--Crs2: conecta al RF con OMUXT
+signal B8:std_logic_vector(31 downto 0);--SEUimm: conecta a SEU con OMUXT
+signal B9:std_logic_vector(31 downto 0);--Oper2: conecta a OMUXT con el Oper2 de la ALU
 
 begin
 
@@ -61,8 +115,45 @@ begin
 	
 	Inst_InstructionMemory: InstructionMemory PORT MAP(
 		Address => B2(5 downto 0),
-		Instruction =>Instruction
+		rst => rst,
+		Instruction =>B3
 	);
 	
-end Behavioral;
+	Inst_OMUXT: OMUXT PORT MAP(
+		Crs2 => B7,
+		SEUimm => B8,
+		i => B3(13),
+		oper2 => B9
+	);	
+	
+	Inst_RF: RF PORT MAP(
+		rs1 => B3(18 downto 14),
+		rs2 => B3(4 downto 0),
+		rd => B3(29 downto 25),
+		DWR => B5,
+		rst => rst,
+		Crs1 => B6,
+		Crs2 => B7
+	);
+	
+	Inst_SEU: SEU PORT MAP(
+		imm13 => B3(12 downto 0),
+		SEUimm => B8
+	);
+	
+	Inst_ALU: ALU PORT MAP(
+		Oper1 => B6,
+		Oper2 => B9,
+		ALUOP => B4,
+		ALURESULT => B5
+	);
+	
+	Inst_CU: CU PORT MAP(
+		OP => B3(31 downto 30),
+		OP3 =>B3(24 downto 19) ,
+		ALUOP => B4
+	);
 
+ALURESULT<=B5;
+	
+end Behavioral;
