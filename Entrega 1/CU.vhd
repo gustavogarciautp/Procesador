@@ -24,11 +24,13 @@ case OP is
 			when "000011"=>ALUOP<="000100";  --4. XOR
 			when "000111"=>ALUOP<="000101";  --5. XNOR
 			when "000000"=>ALUOP<="000110";  --6. ADD
-			when others  =>ALUOP<="000111";  --7. SUB
+			when "000100"=>ALUOP<="000111";  --7. SUB
+			when "100101"=>ALUOP<="001000";  --8. SLL
+			when "100110"=>ALUOP<="001001";  --9. SRL
+			when others  =>ALUOP<="001010";  --10.SRA(OP3=100111)
 		end case;
-	when others=>ALUOP<="111111";
+	when others=>ALUOP<="111111";--Otras instrucciones aun no definidas
 end case;
-
---end if;
+	
 end process;
 end Behavioral;
