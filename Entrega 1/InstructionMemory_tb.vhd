@@ -11,6 +11,7 @@ ARCHITECTURE behavior OF InstructionMemory_tb IS
     COMPONENT InstructionMemory
     PORT(
          Address : IN  std_logic_vector(5 downto 0);
+	 rst: IN std_logic;
          Instruction : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
@@ -18,35 +19,24 @@ ARCHITECTURE behavior OF InstructionMemory_tb IS
 
    --Inputs
    signal Address : std_logic_vector(5 downto 0) := (others => '0');
+   signal rst: std_logic:= '0';
 
  	--Outputs
    signal Instruction : std_logic_vector(31 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
-   --constant <clock>_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: InstructionMemory PORT MAP (
           Address => Address,
+	   rst =>rst,
           Instruction => Instruction
         );
-
-   -- Clock process definitions
-   --<clock>_process :process
-   --begin
-	--	<clock> <= '0';
-	--	wait for <clock>_period/2;
-	--	<clock> <= '1';
-	--	wait for <clock>_period/2;
-   --end process;
- 
-
+	   
    -- Stimulus process
    stim_proc: process
-   begin		
+   begin
+	   	rst<='0';
 		Address<=(others=>'0');
 		wait for 20 ns;
 		Address<="000001";
@@ -54,6 +44,12 @@ BEGIN
 		Address<="000010";
 		wait for 20 ns;
 		Address<="000011";
+		wait for 20 ns;
+		Address<="000100";
+      		wait for 20 ns;
+			
+		rst<='1';
+		Address<="000001";
 		wait for 20 ns;
 		Address<="000100";
       wait;
