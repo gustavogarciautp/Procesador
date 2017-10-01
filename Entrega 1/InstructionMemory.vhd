@@ -4,7 +4,7 @@ use ieee.std_logic_unsigned.all;
 
 entity InstructionMemory is
     Port ( Address : in  STD_LOGIC_VECTOR (5 downto 0);
-           --rst : in  STD_LOGIC;
+           rst : in  STD_LOGIC;
            Instruction : out  STD_LOGIC_VECTOR (31 downto 0));
 end InstructionMemory;
 
@@ -44,9 +44,18 @@ signal ROM : rom_type:= ("00000001000000000000000000000000","0000000100000000000
 								 "10010000001001000100000000010010","10100100000001000010000000010000",
 								 "10100010000100000010000000010001","10100000000100000010000000001111");                        
 
---signal rdata : std_logic_vector(31 downto 0);
 begin
 
-Instruction<=ROM(conv_integer(Address));
+process(rst,Address,ROM)
+
+begin
+
+if rst='1' then
+	Instruction<=(others=>'0');
+else
+	Instruction<=ROM(conv_integer(Address));
+end if;
+
+end process;
 
 end syn;
