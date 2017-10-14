@@ -34,8 +34,12 @@ BEGIN
    stim_proc: process
    begin		
 		imm13<="0100101001110";
-		wait for 10 ns;
+		wait for 20 ns;
 		imm13<="1011000101011";
+		wait for 20 ns;
+		imm13<="0000000000001";
+		wait for 20 ns;
+		imm13<="1000000000000";
 
       wait;
    end process;
