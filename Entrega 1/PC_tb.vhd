@@ -51,22 +51,28 @@ BEGIN
 
    stim_proc: process
    begin		
-      dataIn<="00100010001000100010001000100010";
-		wait for 10 ns;
-		dataIn<="00100010001000100010001000100010";
+      rst<='1';
 		wait for 20 ns;
+		rst<='0';
+      dataIn<="00100010001000100010001000100010";
+		wait for 40 ns;
 		dataIn<="00000000000000000000000000000011";
-      wait for 40 ns;
+      wait for 80 ns;
 		rst<='1';
 		dataIn<="00100010001000100010001000100010";
-		wait for 10 ns;
-		dataIn<="00100010001000100010001000100010";
-		wait for 20 ns;
+		wait for 40 ns;
 		dataIn<="00000000000000000000000000000011";
-      wait for 50 ns;
+      wait for 80 ns;
 		rst<='0';
 		dataIn<="11100010001000100010001111100010";
+		wait for 40 ns;
+		dataIn<="00000000000000111111100001111111";
+		wait for 40 ns;
+		dataIn<="01010010100101001100100100010010";
+		wait for 40 ns;
+		dataIn<="01011110100001011110100001101000";
 		wait for 20 ns;
-   end process;
-
+		dataIn<="00000000000000000000000000111010";
+		wait;
+end process;
 END;
