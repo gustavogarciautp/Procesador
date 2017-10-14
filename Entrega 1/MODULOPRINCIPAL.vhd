@@ -81,10 +81,10 @@ architecture Behavioral of MODULOPRINCIPAL is
 
 signal B0:std_logic_vector(31 downto 0);--Result: conecta al sumador con el DataIn de nPC
 signal B1:std_logic_vector(31 downto 0);--DataOut(nPC): conecta al nPC con el DataIn de PC
-signal B2:std_logic_vector(31 downto 0);--DataOut(PC): conecta al PC con el address del IM
-signal B3:std_logic_vector(31 downto 0);--Instruction: conecta al IM con el CU((31-30),(24-19)),RF((18-14),(4-0),(29-25)),
-													--SEU(12-0) y OMUXT(13)
-signal B4:std_logic_vector(5 downto 0); --ALUOP: conecta a CU y a la ALU
+signal B2:std_logic_vector(31 downto 0);--DataOut(PC): conecta al PC con el address del IM y con el Oper2 de sumador32bits
+signal B3:std_logic_vector(31 downto 0);--Instruction: conecta al IM con el CU(OP(31-30),OP3(24-19)),RF((18-14),rs2(4-0),rd(29-25)),
+													--SEU(imm13(12-0)) y OMUXT(i(13))
+signal B4:std_logic_vector(5 downto 0); --ALUOP: conecta a CU y con la ALU
 signal B5:std_logic_vector(31 downto 0);--ALURESULT: conecta a la ALU con el rd del RF, es la salida del Modulo Principal
 signal B6:std_logic_vector(31 downto 0);--Crs1: conecta al RF con Oper1 de la ALU
 signal B7:std_logic_vector(31 downto 0);--Crs2: conecta al RF con OMUXT
