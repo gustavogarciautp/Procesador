@@ -34,12 +34,6 @@ case ALUOP is
 		ALURESULT<=Oper1+Oper2;
 	when "000111"=>
 		ALURESULT<=Oper1-Oper2;
-	when "001000"=> --SLL
-		ALURESULT<=std_logic_vector(unsigned(Oper1) sll conv_integer(oper2(4 downto 0)));
-	when "001001"=> --SRL
-		ALURESULT<=std_logic_vector(unsigned(Oper1) srl conv_integer(oper2(4 downto 0)));
-	when "001010"=> --SRA
-		ALURESULT<=To_StdLogicVector(to_bitvector(Oper1) sra conv_integer(oper2(4 downto 0)));
 	when others=>--"111111" Instrucciones no definidas
 		ALURESULT<=(others=>'0');
 end case;
