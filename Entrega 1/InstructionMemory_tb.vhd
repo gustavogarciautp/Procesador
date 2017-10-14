@@ -40,17 +40,23 @@ BEGIN
 		Address<=(others=>'0');
 		wait for 20 ns;
 		Address<="000001";
-		wait for 20 ns;
+		wait for 40 ns;
 		Address<="000010";
-		wait for 20 ns;
+		wait for 40 ns;
 		Address<="000011";
-		wait for 20 ns;
+		wait for 40 ns;
 		Address<="000100";
-      		wait for 20 ns;
-			
+      		wait for 40 ns;
+		Address<="000101";
+     		 wait for 40 ns;
+		Address<="000110";
+		wait for 40 ns;
+		Address<="000111";
+      		wait for 40 ns;
+		
 		rst<='1';
 		Address<="000001";
-		wait for 20 ns;
+		wait for 40 ns;
 		Address<="000100";
       wait;
    end process;
