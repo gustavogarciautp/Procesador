@@ -42,27 +42,29 @@ BEGIN
 		OP<="10";
 
 		OP3<="000001";--0. AND
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000101";--1. ANDN
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000010";--2. OR
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000110";--3. ORN
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000011";--4. XOR
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000111";--5. XNOR
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000000";--6. ADD
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="000100";--7. SUB
-		wait for 10 ns;
+		wait for 20 ns;
+		
+		---------------Instrucciones artimetico logicas anun no definidas-------------------
 		OP3<="100101";--8. SLL
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="100110";--9. SRL
-		wait for 10 ns;
+		wait for 20 ns;
 		OP3<="100111";--10.SRA
-		wait for 10 ns;
+		wait for 20 ns;
 		
 		-----------------Otras Instrucciones(aun no definidas)-----------------------
 		OP<="00";
