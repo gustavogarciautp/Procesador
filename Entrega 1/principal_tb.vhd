@@ -50,10 +50,10 @@ BEGIN
    stim_proc: process
    begin		
       rst<='1';
-      wait for 10 ns;
-      rst<='0';
-      wait for 50 ms;
-      rst<='1';
+		wait for 20 ns;
+		rst<='0';
+		wait for 700 ns;
+		rst<='1';
 
       wait;
    end process;
