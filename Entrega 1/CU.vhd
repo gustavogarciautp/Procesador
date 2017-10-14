@@ -16,7 +16,7 @@ begin
 
 case OP is
 	when "10"=> 
-		case OP3 is
+		case OP3 is  --Instrucciones aritmetico logicas
 			when "000001"=>ALUOP<="000000";  --0. AND
 			when "000101"=>ALUOP<="000001";  --1. ANDN
 			when "000010"=>ALUOP<="000010";  --2. OR
@@ -25,9 +25,7 @@ case OP is
 			when "000111"=>ALUOP<="000101";  --5. XNOR
 			when "000000"=>ALUOP<="000110";  --6. ADD
 			when "000100"=>ALUOP<="000111";  --7. SUB
-			when "100101"=>ALUOP<="001000";  --8. SLL
-			when "100110"=>ALUOP<="001001";  --9. SRL
-			when others  =>ALUOP<="001010";  --10.SRA(OP3=100111)
+			when others  =>ALUOP<="111111";  --Otras instrucciones aritmetico logicas aun no definidas
 		end case;
 	when others=>ALUOP<="111111";--Otras instrucciones aun no definidas
 end case;
