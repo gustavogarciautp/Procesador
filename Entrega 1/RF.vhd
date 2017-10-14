@@ -18,9 +18,6 @@ type ram_type is array (31 downto 0) of std_logic_vector (31 downto 0);
 signal RAM: ram_type:=(others => "00000000000000000000000000000000");
 
 --registro g0 siempre es cero
---signal x:std_logic_vector(31 downto 0); 
---signal x1:std_logic_vector(31 downto 0); 
-
 begin
 process (rs1,rs2,rd,DWR,rst,RAM)
 begin
@@ -31,6 +28,7 @@ if rst='0' then
 	Crs1<=RAM(conv_integer(rs1));
 	Crs2<=RAM(conv_integer(rs2));
 else
+	RAM<=(others => "00000000000000000000000000000000");
 	Crs1<=(others=>'0');
 	Crs2<=(others=>'0');
 end if;
