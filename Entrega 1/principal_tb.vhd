@@ -33,7 +33,7 @@ BEGIN
    uut: MODULOPRINCIPAL PORT MAP (
           rst => rst,
           CLK => CLK,
-          Instruction => Instruction
+          ALURESULT => ALURESULT
         );
 
    -- Clock process definitions
