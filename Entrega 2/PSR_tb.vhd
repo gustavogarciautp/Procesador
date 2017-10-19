@@ -74,6 +74,8 @@ BEGIN
 		wait for 40 ns;
 		nCWP<='0';
 		wait for 40 ns;
+		NZVC<="1111";
+		wait for 40 ns;
 		rst<='1';
       wait;
    end process;
