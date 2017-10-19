@@ -54,6 +54,13 @@ BEGIN
 		Address<="000111";
       wait for 40 ns;
 		
+		Address<="001000";
+      wait for 40 ns;
+		Address<="001001";
+      wait for 40 ns;
+		Address<="001010";
+      wait for 40 ns;
+		
 		rst<='1';
 		Address<="000001";
 		wait for 40 ns;
