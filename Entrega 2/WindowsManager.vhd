@@ -17,7 +17,7 @@ end WindowsManager;
 architecture Behavioral of WindowsManager is
 
 begin
-process(rs1,rs2,rd,op,op3)
+process(rs1,rs2,rd,op,op3,CWP)
 begin
 
 if(CWP='0') then
