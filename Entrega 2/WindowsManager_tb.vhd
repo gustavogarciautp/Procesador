@@ -61,12 +61,24 @@ BEGIN
 		rs2<="10000";
 		rd<="11000";
 		op<="10";
-		op3<="000000";
+		op3<="000000"; --suma
 		CWP<='0';
 		wait for 20 ns;
 		CWP<='1';
 		wait for 20 ns;
-		op3<="111100";
+		op3<="000100"; --resta
+		wait for 20 ns;
+		rs1<="00100";
+		rs2<="00001";
+		rd<="11011";
+		op3<="111100"; --save
+		wait for 20 ns;
+		op3<="000010"; -- OR
+		wait for 20 ns;
+		rs1<="00111";
+		rs2<="10001";
+		rd<="10011";
+		op3<="111101"; --restore
 
       wait;
    end process;
